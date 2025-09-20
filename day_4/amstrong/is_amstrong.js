@@ -1,18 +1,11 @@
-const inputNumber = 9;
+const number = 231;   
 
-// 2^2 + 4^2
-// 1^3 + 2^3 + 3^3
-let noOfDigit = 0;
-let copyOfInputNumber = inputNumber;
-
-while (copyOfInputNumber >= 1) {
-    copyOfInputNumber = copyOfInputNumber / 10;    
-    noOfDigit++;
+let strCopyNumber = number + ""; 
+let result = 0;
+for(let counter = 0; counter < strCopyNumber.length; counter++) {
+    const eachNumber = strCopyNumber[counter] ** strCopyNumber.length; // '2' ** 2
+    result =result + eachNumber;
 }
 
-for(let counter = 0; counter < noOfDigit; counter++){
-
-}
-
-
-// console.log(inputNumber + " is a amstrong number");
+const text = result === number ? " is a Amstrong" : " not a Amstrong"
+console.log(number + text);

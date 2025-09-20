@@ -7,3 +7,5 @@ input  |  output
  345   | is not amstrong
  23    | is not amstrong
  24    | is not amstrong
+
+
