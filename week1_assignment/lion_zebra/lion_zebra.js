@@ -1,6 +1,6 @@
-const givenStr = ` `
+const givenStr = ` L Z   Z L  Z`
 
-let minLenght = Infinity;
+let minLenght = 100;
 for(let i = 0; i < givenStr.length; i++){
     if(givenStr[i] === 'L') {
         let difference = 0;
@@ -24,5 +24,5 @@ for(let i = 0; i < givenStr.length; i++){
         } 
     }
 }
-const restult = minLenght !== Infinity ? minLenght-1 : -1
+const restult = minLenght !== 100 ? minLenght-1 : -1
 console.log(restult);
