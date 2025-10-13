@@ -60,16 +60,16 @@ function formatText(actualOutput, expectedOutput) {
   }
 
   const expectedValue = GREEN_COLOR + expectedOutput + RESET_COLOR
-  const expectedMessage = "  Expected ->[ " + expectedValue + " ]";
+  const expectedMessage = ` Expected ->[ ${expectedValue} ]`;
 
   const outputValue = color + actualOutput + RESET_COLOR;
-  const OutputMessage = "  Output->[ " + outputValue + ' ]';
+  const OutputMessage = ` Output->[ ${outputValue} ]`;
 
   return expectedMessage + OutputMessage + symbol;
 }
 
 function composeMessage(originalString, actualOutput, expectedOutput) {
-  const inputMessge = "String->[ " + originalString + " ]";
+  const inputMessge = `String->[ ${originalString }]`;
   const message = formatText(actualOutput, expectedOutput);
 
   return inputMessge + message;
