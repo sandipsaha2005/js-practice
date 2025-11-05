@@ -26,12 +26,16 @@ function frequency(array) {
     }
 
   }
-
   return _frequency;
 }
 
-function 
+function fingGreatest(frequency,array) {
+  console.log(array);
+  
+  console.log(Object.entries(frequency));
+}
 
 const array = [1, 1, 1, 2, 3, 5, 5, 3];
-console.log(frequency(array));
+const _frequency = frequency(array);
+fingGreatest(_frequency,array);
 
