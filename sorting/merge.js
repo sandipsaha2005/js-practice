@@ -27,9 +27,7 @@ const merge = function (array, start, mid, end) {
     index++;
     j++;
   }
-
-}
-
+};
 
 const mergeSort = function (array, low, high) {
   if (low >= high) {
@@ -40,8 +38,8 @@ const mergeSort = function (array, low, high) {
   mergeSort(array, low, mid);
   mergeSort(array, mid + 1, high);
   merge(array, low, mid, high);
-}
+};
 
-const arrayNumber = [2, 4, 1, 3,1,1];
+const arrayNumber = [2, 4, 1, 3, 1, 1];
 mergeSort(arrayNumber, 0, arrayNumber.length - 1);
 console.log(arrayNumber);

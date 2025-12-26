@@ -1,7 +1,7 @@
-const compare = function (a, b, lessThan) {
+const compare = function (a, b, orderBy) {
   const value1 = typeof a === "string" ? a.length : a;
   const value2 = typeof b === "string" ? b.length : b;
-  return lessThan(value1, value2);
+  return orderBy(value1, value2);
 }
 
 const bubbleSort = function (array, order) {

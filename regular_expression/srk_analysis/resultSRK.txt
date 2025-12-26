@@ -1,0 +1,11 @@
+1. no of movies srk acted in - 86
+
+2. The year where SRK acted in the most number of movies and the number of movies he acted in that year. ->   7 1995
+// grep -o "\d\d\d\d" finalSrk.csv | uniq -c | sort -rn | head -n1
+3. // grep "Actor" finalSrk.csv | grep -o "[^,\!]*$" | sort -u 
+4. // grep -o "[^,\!]*$" finalSrk.csv| sort | uniq -c | sort -nr | grep "   [^01]"
+5. // tail -n+2 finalSrk.csv |cut -c1| sort | uniq -c | sort -rn | head -n1
+6. // sort -t"," -nrk2 data.txt | sort -s -t"," -nk2
+7. // grep -o "[^,\!]*$" finalSrk.csv | sort | uniq -c | sort -t" " -nrk1 | head -n1
+8. // grep "Actor" finalSrk.csv | cut -d"," -f1 | cut -d" " -f1 | sort | uniq -c | sort -t" " -rnk1 | head -n1
+9. // grep "Actor" finalSrk.csv | cut -d"," -f1 | grep -o "[^ ]*" | sort | uniq -c | sort -t" " -rnk1 | head -n1
