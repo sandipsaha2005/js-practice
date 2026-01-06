@@ -8,6 +8,12 @@ const main = () => {
   l1.add(40);
   l1.add(50);
   l1.display();
+  l1.insertAt(3, 45);
+  l1.unshift(100);
+  l1.shift();
+  l1.pop();
+  l1.deleteFrom(2);
+  console.log(l1.isPresent(10));
 };
 
 main();
