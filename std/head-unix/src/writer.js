@@ -7,3 +7,4 @@ export const writeToStdout = async (data) => {
 export const writeToStderr = async (data) => {
   await Deno.stderr.write(encoder.encode(data));
 };
+
