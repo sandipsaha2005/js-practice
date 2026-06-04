@@ -43,7 +43,7 @@ Deno.test("For invalid argument for option -n", () => {
 
 Deno.test("For invalid argument for option -c", () => {
   assertEquals(parser(["-c", "ab", "poem"]), {
-    mode: "-n",
+    mode: "-c",
     count: 10,
     quiteMode: false,
     files: [],
@@ -54,7 +54,7 @@ Deno.test("For invalid argument for option -c", () => {
 
 Deno.test("For not giving argument after option -c", () => {
   assertEquals(parser(["-c"]), {
-    mode: "-n",
+    mode: "-c",
     count: 10,
     quiteMode: false,
     files: [],

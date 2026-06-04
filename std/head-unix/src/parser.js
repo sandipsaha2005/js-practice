@@ -1,37 +1,65 @@
-const offSet = {
-  "-n": 1,
-  "-c": 1,
-  "-q": 0,
+class Scanner {
+  constructor(list) {
+    this.queue = list;
+  }
+  peek() {
+    return this.queue[0];
+  }
+  dequeue() {
+    return this.queue.shift();
+  }
+}
+
+const needArguments = {
+  "-q": false,
+  "-n": true,
+  "-c": true,
 };
 
-const validOptions = new Set(["-n", "-q", "-c"]);
+const validOptions = new Set(["-q", "-n", "-c"]);
 
-const isStartingWithDash = (args, i) => args[i].startsWith("-");
+const updateGroup = (queue, group) => {
+  const option = queue.dequeue();
+  const specifier = option === "-n" ? "line" : "byte";
 
-const isValidOption = (args, i) =>
-  validOptions.has(args[i]) && isStartingWithDash(args, i);
-
-const isArgumentMissing = (args, i) =>
-  args[i + 1] === undefined && isStartingWithDash(args, i);
-
-const updateGroup = ([flag, value], group) => {
-  if (flag === "-q") {
+  if (option === "-q") {
     group.quiteMode = true;
     return;
   }
+  group.mode = option;
 
-  const limit = Number(value);
+  if (needArguments[option]) {
+    if (!queue.peek()) {
+      throw new Error(`head: option requires an argument -- ${option}`);
+    }
 
-  if (Number.isNaN(limit) || limit < 0) {
-    const specifier = flag === "-n" ? "line" : "byte";
-    throw new Error(`head: illegal ${specifier} count -- ${value}`);
+    const actualArg = queue.dequeue();
+    const arg = Number(actualArg);
+    if (Number.isNaN(arg)) {
+      throw new TypeError(`head: illegal ${specifier} count -- ${actualArg}`);
+    }
+
+    group.count = arg;
   }
+};
 
-  group.mode = flag;
-  group.count = limit;
+const parse = (q, group) => {
+  while (q.peek()) {
+    const current = q.peek();
+
+    if (current.startsWith("-") && !validOptions.has(current)) {
+      throw new Error(`head: illegal option -- ${current}`);
+    } else if (validOptions.has(current)) {
+      updateGroup(q, group);
+    } else {
+      group.files.push(q.dequeue());
+    }
+  }
 };
 
 export const parser = (args) => {
+  const scanner = new Scanner(args);
+
   const group = {
     mode: "-n",
     count: 10,
@@ -39,26 +67,8 @@ export const parser = (args) => {
     files: [],
   };
 
-  let i = 0;
   try {
-    while (i < args.length) {
-      if (isStartingWithDash(args, i) && !isValidOption(args, i)) {
-        throw new Error(`head: illegal option -- ${args[i]}`);
-      }
-
-      if (isArgumentMissing(args, i) && args[i] !== "-q") {
-        throw new Error(`head: option requires an argument -- ${args[i]}`);
-      }
-
-      if (isValidOption(args, i)) {
-        updateGroup(args.slice(i, i + offSet[args[i]] + 1), group);
-        i += offSet[args[i]];
-      } else {
-        group.files.push(args[i]);
-      }
-
-      i++;
-    }
+    parse(scanner, group);
   } catch (error) {
     return {
       ...group,
@@ -67,7 +77,7 @@ export const parser = (args) => {
     };
   }
 
-  if (group.files.length === 1 || group.files.length === 0) {
+  if (group.files.length <= 1) {
     group.quiteMode = true;
   }
   return group;
